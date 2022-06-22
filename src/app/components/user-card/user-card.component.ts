@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DoCheck, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-user-card',
@@ -6,23 +6,30 @@ import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit
   styleUrls: ['./user-card.component.scss'],
   // changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UserCardComponent implements OnChanges, OnInit, OnDestroy {
+export class UserCardComponent implements OnChanges, OnInit, DoCheck, OnDestroy {
 
   @Input() userList: any[] = [];
-  showMessage: boolean = false;
 
-  constructor() { }
-
+  constructor() { 
+    console.log("----------------------");
+    console.log("    user-card Const    ");
+    console.log("----------------------");
+  }
+  
   ngOnChanges(changes: SimpleChanges): void {
-    console.log("user-card onChanges");
+    console.log("onChanges");
+  }
+  
+  ngOnInit(): void {
+    console.log("onInit");
   }
 
-  ngOnInit(): void {
-    console.log("user-card onInit")
+  ngDoCheck(): void {
+    console.log("doCheck");
   }
 
   ngOnDestroy(): void {
-    console.log("user-card will destroy");
+    console.log("onDestroy");
   }
 
 }

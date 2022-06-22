@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Component, DoCheck, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -6,14 +6,18 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './user-admin.component.html',
   styleUrls: ['./user-admin.component.scss']
 })
-export class UserAdminComponent implements OnChanges, OnInit, OnDestroy {
+export class UserAdminComponent implements OnChanges, OnInit, DoCheck, OnDestroy {
 
   userList: any[] = [];
 
-  constructor(private userSvc: UserService) { }
+  constructor(private userSvc: UserService) { 
+    console.log("----------------------");
+    console.log("    user-admin Const    ");
+    console.log("----------------------");
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log("user-admin onChanges");
+    console.log("onChanges");
   }
 
   ngOnInit(): void {
@@ -30,17 +34,23 @@ export class UserAdminComponent implements OnChanges, OnInit, OnDestroy {
     getUsers();
   }
 
-  removeFirstUserMutating() {
-    this.userList.splice(0, 1);
-  }
-
-  removeFirstUserWithoutMutating() {
-    const userListCopy = [...this.userList];    
-    userListCopy.splice(0, 1);
-    this.userList = userListCopy;
+  ngDoCheck(): void {
+    console.log("doCheck");
   }
 
   ngOnDestroy(): void {
-    console.log("user-admin will destroy");
+    console.log("onDestroy");
+  }
+
+  dummyMethod():void {}
+
+  removeFirstMutating() {
+    this.userList.splice(0, 1);
+  }
+
+  removeFirstWithoutMutating() {
+    const userListCopy = [...this.userList];    
+    userListCopy.splice(0, 1);
+    this.userList = userListCopy;
   }
 }
